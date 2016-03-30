@@ -18,12 +18,13 @@
             android:layout_marginRight="50dp"
             android:id="@+id/temp"/>
 
-        <CheckBox
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_gravity="center"
-            android:id="@+id/ckBox"/>
+            android:id="@+id/imgBtn"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
     </LinearLayout>
 </LinearLayout>
