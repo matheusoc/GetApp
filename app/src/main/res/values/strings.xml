@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">"GetApp"</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="segunda">Segunda</string>
+    <string name="terca">Terça </string>
+    <string name="quarta">Quarta </string>
+    <string name="quinta">Quinta </string>
+    <string name="sexta">Sexta </string>
+    <string name="sabado">Sábado </string>
+    <string name="domingo">Domingo </string>
+    <string name="diassemana">Dias da semana </string>
+    <string name="todosdias">Todos os dias </string>
+    <string name="confirm">Confirmar</string>
+    <string name="selectAll">Selecionar tudo</string>
+</resources>
