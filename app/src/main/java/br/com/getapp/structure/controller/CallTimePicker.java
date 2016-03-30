@@ -31,7 +31,9 @@ public class CallTimePicker extends DialogFragment implements TimePickerDialog.O
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
 
-        return new TimePickerDialog(getActivity(), this, hour, minute, true);
+        TimePickerDialog tmpDialog = new TimePickerDialog(getActivity(), this, hour, minute, true);
+
+        return tmpDialog;
     }
 
     @Override
