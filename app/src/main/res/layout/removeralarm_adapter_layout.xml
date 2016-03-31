@@ -16,14 +16,18 @@
             android:text="7:00"
             android:textSize="35sp"
             android:layout_marginRight="50dp"
+            android:layout_gravity="center"
             android:id="@+id/temp"/>
 
-        <CheckBox
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_gravity="center"
-            android:id="@+id/ckBox"/>
+            android:id="@+id/removeImageButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            />
 
     </LinearLayout>
 </LinearLayout>
