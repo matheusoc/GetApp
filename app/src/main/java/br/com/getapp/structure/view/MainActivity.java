@@ -67,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshList();
+    }
+
     public void refreshList() {
         listView.setAdapter(new AlarmAdapter(this));
     }

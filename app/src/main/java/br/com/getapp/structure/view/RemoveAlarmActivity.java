@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -69,6 +70,17 @@ public class RemoveAlarmActivity extends AppCompatActivity {
 
             final Alarm clock = alarms.get(position);
 
+            String hora;
+            String minuto;
+            hora = clock.getHora();
+            minuto = clock.getMinuto();
+            if(Integer.valueOf(hora) >= 0 && Integer.valueOf(hora) <= 9) {
+                hora = "0"+hora;
+            }
+            if(Integer.valueOf(minuto) >= 0 && Integer.valueOf(minuto) <= 9) {
+                minuto = "0"+minuto;
+            }
+
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.removeralarm_adapter_layout, null);
 
@@ -80,6 +92,9 @@ public class RemoveAlarmActivity extends AppCompatActivity {
                     refreshList();
                 }
             });
+
+            TextView tempo = (TextView) layout.findViewById(R.id.temp);
+            tempo.setText(hora + ":" + minuto);
 
             return layout;
         }
