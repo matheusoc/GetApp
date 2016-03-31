@@ -100,7 +100,7 @@ public class RemoveAlarmActivity extends AppCompatActivity {
                     refreshList();
                 }
             });
-            Log.i("muda","muda");
+
             return layout;
         }
     }
