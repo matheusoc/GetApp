@@ -3,7 +3,6 @@ package br.com.getapp.structure.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,32 +23,28 @@ import br.com.getapp.structure.model.Alarm;
 public class RemoveAlarmActivity extends AppCompatActivity {
 
     private ListView listView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.removeralarm_layout);
-
-        final Context ctx = this;
 
         listView = (ListView) findViewById(R.id.listView2);
         listView.setAdapter(new RemoveAlarmAdapter(this));
 
     }
 
-    public void refreshList(){
+    public void refreshList() {
         listView.setAdapter(new RemoveAlarmAdapter(this));
     }
 
-    public class RemoveAlarmAdapter extends BaseAdapter {
+    public class RemoveAlarmAdapter extends BaseAdapter{
 
         private Context context;
         private ArrayList<Alarm> alarms;
-        private DataBase db;
 
-        public RemoveAlarmAdapter (Context context) {
+        RemoveAlarmAdapter(Context context) {
             this.context = context;
-            this.db = new DataBase(context);
+            DataBase db = new DataBase(context);
             alarms = db.search();
         }
 
@@ -69,11 +64,11 @@ public class RemoveAlarmActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final int pos = position;
+            final DataBase db = new DataBase(context);
 
             final Alarm clock = alarms.get(position);
-
-            final DataBase bd = db;
 
             String hora;
             String minuto;
@@ -85,15 +80,12 @@ public class RemoveAlarmActivity extends AppCompatActivity {
             if(Integer.valueOf(minuto) >= 0 && Integer.valueOf(minuto) <= 9) {
                 minuto = "0"+minuto;
             }
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.removeralarm_adapter_layout, null);
 
-            TextView tempo = (TextView) layout.findViewById(R.id.temp);
-            tempo.setText(hora + ":" + minuto);
-
-            ImageButton imageBtn = (ImageButton) layout.findViewById(R.id.imgBtn);
-            imageBtn.setOnClickListener(new View.OnClickListener() {
+            ImageButton imgBtn = (ImageButton) layout.findViewById(R.id.removeImageButton);
+            imgBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     db.delete(clock);
@@ -101,9 +93,10 @@ public class RemoveAlarmActivity extends AppCompatActivity {
                 }
             });
 
+            TextView tempo = (TextView) layout.findViewById(R.id.temp);
+            tempo.setText(hora + ":" + minuto);
+
             return layout;
         }
     }
 }
-
-
