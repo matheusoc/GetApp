@@ -38,6 +38,7 @@ public class CallTimePicker extends DialogFragment {
     private TimePickerDialog tmDialog;
     private Button btnCancel;
     private Button btnOk;
+    private NotificationAlarm noAlarm;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class CallTimePicker extends DialogFragment {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
+        noAlarm = new NotificationAlarm();
 
         return dialog(getActivity(), hour, minute, DateFormat.is24HourFormat(getActivity()));
     }
@@ -77,6 +79,7 @@ public class CallTimePicker extends DialogFragment {
                 DataBase db = new DataBase(context);
                 db.insert(alarm);
                 ((MainActivity) getActivity()).refreshList();
+                noAlarm.createNotification(context);
                 d.cancel();
             }
         });

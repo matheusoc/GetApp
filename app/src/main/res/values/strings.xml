@@ -12,4 +12,5 @@
     <string name="todosdias">Todos os dias </string>
     <string name="confirm">Confirmar</string>
     <string name="selectAll">Selecionar tudo</string>
+    <string name="removeAlarm">Remover Alarmes</string>
 </resources>

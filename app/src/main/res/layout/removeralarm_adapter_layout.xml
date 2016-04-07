@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="15dp"
         android:layout_gravity="center">
         <TextView
             android:layout_width="wrap_content"
@@ -20,11 +21,12 @@
             android:id="@+id/temp"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="50dp"
             android:layout_gravity="center"
             android:id="@+id/removeImageButton"
+            android:background="@drawable/round_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             />

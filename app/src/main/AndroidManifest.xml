@@ -23,6 +23,7 @@
 
         <activity
             android:name=".structure.view.EditAlarmActivity"
+            android:label="@string/removeAlarm"
             android:configChanges="orientation|screenSize">
         </activity>
 

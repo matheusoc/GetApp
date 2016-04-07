@@ -1,12 +1,10 @@
 package br.com.getapp.structure.view;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextClock;
 
 import br.com.getapp.R;
-import br.com.getapp.structure.adapter.AlarmAdapter;
+import br.com.getapp.structure.view.adapter.AlarmAdapter;
 import br.com.getapp.structure.controller.CallTimePicker;
 
 /**

@@ -60,26 +60,29 @@ public class DataBase  {
         ArrayList<Alarm> list = new ArrayList<>();
         String[] column = new String[]{"_id","hour","minute","monday","tuesday","wednesday","thursday",
                 "friday","saturday","sunday"};
-        Cursor cursor = db.query("alarms", column, null, null, null, null, "hour ASC");
+        Cursor cursor = db.query("alarms", column, null, null, null, null, "hour ASC");;
+        try {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                do {
+                    Alarm alarm = new Alarm();
+                    alarm.setID(cursor.getInt(0));
+                    alarm.setHora(cursor.getString(1));
+                    alarm.setMinuto(cursor.getString(2));
+                    alarm.setSegunda(cursor.getString(3));
+                    alarm.setTerca(cursor.getString(4));
+                    alarm.setQuarta(cursor.getString(5));
+                    alarm.setQuinta(cursor.getString(6));
+                    alarm.setSexta(cursor.getString(7));
+                    alarm.setSabado(cursor.getString(8));
+                    alarm.setDomingo(cursor.getString(9));
 
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            do {
-                Alarm alarm = new Alarm();
-                alarm.setID(cursor.getInt(0));
-                alarm.setHora(cursor.getString(1));
-                alarm.setMinuto(cursor.getString(2));
-                alarm.setSegunda(cursor.getString(3));
-                alarm.setTerca(cursor.getString(4));
-                alarm.setQuarta(cursor.getString(5));
-                alarm.setQuinta(cursor.getString(6));
-                alarm.setSexta(cursor.getString(7));
-                alarm.setSabado(cursor.getString(8));
-                alarm.setDomingo(cursor.getString(9));
+                    list.add(alarm);
 
-                list.add(alarm);
-
-            }while(cursor.moveToNext());
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            cursor.close();
         }
 
         return (list);
