@@ -6,13 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import br.com.getapp.R;
-import br.com.getapp.structure.SQL.DataBase;
+import br.com.getapp.structure.alarmbuild.AlarmBuilder;
+import br.com.getapp.structure.controller.DataBase;
 import br.com.getapp.structure.model.Alarm;
 import br.com.getapp.structure.view.EditAlarmActivity;
 
@@ -50,9 +52,9 @@ public class AlarmAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-       final int pos = position;
+        final int pos = position;
 
-        Alarm clock = alarms.get(position);
+        final Alarm clock = alarms.get(position);
 
         String hora;
         String minuto;
@@ -65,6 +67,8 @@ public class AlarmAdapter extends BaseAdapter {
             minuto = "0"+minuto;
         }
 
+        final AlarmBuilder alarmBuilder = new AlarmBuilder(context);
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.alarm_adapter_layout, null);
 
@@ -72,6 +76,17 @@ public class AlarmAdapter extends BaseAdapter {
         tempo.setText(hora + ":" + minuto);
 
         Switch sw = (Switch) layout.findViewById(R.id.sw);
+
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    alarmBuilder.addOneAlarm(clock);
+                } else {
+                    alarmBuilder.alarmCancel(clock);
+                }
+            }
+        });
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override

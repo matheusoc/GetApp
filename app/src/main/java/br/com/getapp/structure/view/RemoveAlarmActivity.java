@@ -1,6 +1,5 @@
 package br.com.getapp.structure.view;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.com.getapp.R;
-import br.com.getapp.structure.SQL.DataBase;
+import br.com.getapp.structure.alarmbuild.AlarmBuilder;
+import br.com.getapp.structure.controller.DataBase;
 import br.com.getapp.structure.model.Alarm;
 
 /**
@@ -119,6 +118,8 @@ public class RemoveAlarmActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     db.delete(clock);
+                    AlarmBuilder alarm = new AlarmBuilder(context);
+                    alarm.alarmCancel(clock);
                     refreshList();
                 }
             });

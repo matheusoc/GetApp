@@ -1,31 +1,19 @@
 package br.com.getapp.structure.controller;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.HashSet;
 
 import br.com.getapp.R;
-import br.com.getapp.structure.SQL.DataBase;
+import br.com.getapp.structure.alarmbuild.AlarmBuilder;
 import br.com.getapp.structure.model.Alarm;
 import br.com.getapp.structure.view.MainActivity;
 
@@ -35,10 +23,8 @@ import br.com.getapp.structure.view.MainActivity;
 public class CallTimePicker extends DialogFragment {
 
     private  TimePicker picker;
-    private TimePickerDialog tmDialog;
     private Button btnCancel;
     private Button btnOk;
-    private NotificationAlarm noAlarm;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -46,8 +32,6 @@ public class CallTimePicker extends DialogFragment {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-        noAlarm = new NotificationAlarm();
-
         return dialog(getActivity(), hour, minute, DateFormat.is24HourFormat(getActivity()));
     }
 
@@ -76,10 +60,10 @@ public class CallTimePicker extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Alarm alarm = new Alarm(String.valueOf(picker.getCurrentHour()), String.valueOf(picker.getCurrentMinute()));
+                AlarmBuilder alarmBuilder = new AlarmBuilder(context);
                 DataBase db = new DataBase(context);
                 db.insert(alarm);
                 ((MainActivity) getActivity()).refreshList();
-                noAlarm.createNotification(context);
                 d.cancel();
             }
         });
