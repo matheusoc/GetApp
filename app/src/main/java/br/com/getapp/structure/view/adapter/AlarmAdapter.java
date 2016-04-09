@@ -2,6 +2,7 @@ package br.com.getapp.structure.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,12 @@ public class AlarmAdapter extends BaseAdapter {
 
     private ArrayList<Alarm> alarms;
 
+    private DataBase db;
+
     public AlarmAdapter(Context context) {
         this.context = context;
-        DataBase db = new DataBase(context);
-        alarms = db.search();
+        db = new DataBase(context);
+        alarms = db.getAllAlarms();
     }
     @Override
     public int getCount() {
@@ -77,13 +80,27 @@ public class AlarmAdapter extends BaseAdapter {
 
         Switch sw = (Switch) layout.findViewById(R.id.sw);
 
+        Log.i("Está ligado?", String.valueOf(clock.getOn()));
+        Log.i("Dia", clock.getDomingo());
+
+        if(clock.getOn() == 1){
+            sw.setChecked(true);
+        } else {
+            sw.setChecked(false);
+        }
+
+
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     alarmBuilder.addOneAlarm(clock);
+                    clock.setOn(1);
+                    db.refresh(clock);
                 } else {
                     alarmBuilder.alarmCancel(clock);
+                    clock.setOn(0);
+                    db.refresh(clock);
                 }
             }
         });

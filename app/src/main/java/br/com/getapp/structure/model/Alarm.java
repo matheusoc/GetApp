@@ -20,6 +20,8 @@ public class Alarm {
     private String sabado = "no";
     private String domingo = "no";
 
+    private int on = 0;
+
     public Alarm(String hora, String minuto) {
         this.hora = hora;
         this.minuto = minuto;
@@ -107,5 +109,13 @@ public class Alarm {
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
+    }
+
+    public int getOn() {
+        return on;
+    }
+
+    public void setOn(int on) {
+        this.on = on;
     }
 }

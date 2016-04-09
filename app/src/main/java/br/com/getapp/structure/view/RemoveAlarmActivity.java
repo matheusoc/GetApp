@@ -74,7 +74,7 @@ public class RemoveAlarmActivity extends AppCompatActivity {
         RemoveAlarmAdapter(Context context) {
             this.context = context;
             DataBase db = new DataBase(context);
-            alarms = db.search();
+            alarms = db.getAllAlarms();
         }
 
         @Override

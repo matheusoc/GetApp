@@ -28,12 +28,13 @@ public class AlarmBuilder {
 
     public  void addOneAlarm(Alarm alarm) {
         i = new Intent(context, AlarmReceiver.class);
+        i.putExtra("id", alarm.getID());
         p = PendingIntent.getBroadcast(context, alarm.getID(), i, 0);
         Log.i("Alarm ID", String.valueOf(alarm.getID()));
         Long time;
         time = getTimeToAlarm(alarm);
         Log.i("Time", String.valueOf(time));
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + time, p);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, p);
     }
 
     private  Long getTimeToAlarm(Alarm alarm) {
@@ -41,6 +42,9 @@ public class AlarmBuilder {
         Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
+
+        Calendar c1 = Calendar.getInstance();
+        c1.set(Calendar.SECOND, 0);
 
         int hourToSet = Integer.parseInt(alarm.getHora());
         int minuteToSet = Integer.parseInt(alarm.getMinuto());
@@ -50,24 +54,22 @@ public class AlarmBuilder {
         Log.i("hora set do dia", String.valueOf(hourToSet));
         Log.i("Minuto set do dia", String.valueOf(minuteToSet));
         if(hour >= hourToSet && minute >= minuteToSet ) {
-            Calendar c1 = Calendar.getInstance();
+
             c1.set(Calendar.DAY_OF_YEAR, c1.get(Calendar.DAY_OF_YEAR)+1);
             c1.set(Calendar.HOUR_OF_DAY, hourToSet);
             c1.set(Calendar.MINUTE, minuteToSet);
-            time = (c1.getTimeInMillis() - c.getTimeInMillis());
+            time = (c1.getTimeInMillis());
             Log.i("Hora maior,minuto menor", "hey");
         } else if(hour > hourToSet) {
-            Calendar c1 = Calendar.getInstance();
             c1.set(Calendar.DAY_OF_YEAR, c1.get(Calendar.DAY_OF_YEAR)+1);
             c1.set(Calendar.HOUR_OF_DAY, hourToSet);
             c1.set(Calendar.MINUTE, minuteToSet);
-            time = (c1.getTimeInMillis() - c.getTimeInMillis());
+            time = (c1.getTimeInMillis());
             Log.i("Hora maior" , "hey");
         } else {
-            Calendar c1 = Calendar.getInstance();
             c1.set(Calendar.HOUR_OF_DAY, hourToSet);
             c1.set(Calendar.MINUTE, minuteToSet);
-            time = (c1.getTimeInMillis() - c.getTimeInMillis());
+            time = (c1.getTimeInMillis());
             Log.i("Normal", "hey");
         }
 

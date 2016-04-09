@@ -34,6 +34,7 @@ public class DataBase  {
         values.put("friday", alarm.getSexta());
         values.put("saturday", alarm.getSabado());
         values.put("sunday", alarm.getDomingo());
+        values.put("onoff", alarm.getOn());
 
         db.insert("alarms", null, values);
     }
@@ -49,6 +50,7 @@ public class DataBase  {
         values.put("friday", alarm.getSexta());
         values.put("saturday", alarm.getSabado());
         values.put("sunday", alarm.getDomingo());
+        values.put("onoff", alarm.getOn());
 
         db.update("alarms", values, "_id = ?", new String[]{"" + alarm.getID()});
     }
@@ -57,11 +59,41 @@ public class DataBase  {
         db.delete("alarms", "_id = " + alarm.getID(), null);
     }
 
-    public ArrayList<Alarm> search() {
+    public Alarm search(int id) {
+        Alarm alarm = new Alarm();
+        String[] column = new String[]{"_id","hour","minute","monday","tuesday","wednesday","thursday",
+                "friday","saturday","sunday","onoff"};
+        Cursor cursor = db.query("alarms", column, null,null,null,null, "hour ASC");
+        try {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                do {
+                    if(cursor.getInt(10) == id) {
+                        alarm.setID(cursor.getInt(0));
+                        alarm.setHora(cursor.getString(1));
+                        alarm.setMinuto(cursor.getString(2));
+                        alarm.setSegunda(cursor.getString(3));
+                        alarm.setTerca(cursor.getString(4));
+                        alarm.setQuarta(cursor.getString(5));
+                        alarm.setQuinta(cursor.getString(6));
+                        alarm.setSexta(cursor.getString(7));
+                        alarm.setSabado(cursor.getString(8));
+                        alarm.setDomingo(cursor.getString(9));
+                        alarm.setOn(cursor.getInt(10));
+                    }
+                }while (cursor.moveToNext());
+            }
+        } finally {
+            cursor.close();
+        }
+        return alarm;
+    }
+
+    public ArrayList<Alarm> getAllAlarms() {
         ArrayList<Alarm> list = new ArrayList<>();
         String[] column = new String[]{"_id","hour","minute","monday","tuesday","wednesday","thursday",
-                "friday","saturday","sunday"};
-        Cursor cursor = db.query("alarms", column, null, null, null, null, "hour ASC");;
+                "friday","saturday","sunday","onoff"};
+        Cursor cursor = db.query("alarms", column, null, null, null, null, "hour ASC");
         try {
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
@@ -77,6 +109,7 @@ public class DataBase  {
                     alarm.setSexta(cursor.getString(7));
                     alarm.setSabado(cursor.getString(8));
                     alarm.setDomingo(cursor.getString(9));
+                    alarm.setOn(cursor.getInt(10));
 
                     list.add(alarm);
 
