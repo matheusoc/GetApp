@@ -68,7 +68,7 @@ public class DataBase  {
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 do {
-                    if(cursor.getInt(10) == id) {
+                    if(cursor.getInt(0) == id) {
                         alarm.setID(cursor.getInt(0));
                         alarm.setHora(cursor.getString(1));
                         alarm.setMinuto(cursor.getString(2));

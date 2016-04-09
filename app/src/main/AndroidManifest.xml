@@ -13,6 +13,7 @@
         <activity
             android:name=".structure.view.MainActivity"
             android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +30,7 @@
 
         <activity
             android:name=".structure.view.RemoveAlarmActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize">
         </activity>
 

@@ -1,6 +1,5 @@
 package br.com.getapp.structure.view;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.CheckBox;
 
 
 import br.com.getapp.R;
-import br.com.getapp.structure.controller.CallTimePicker;
 
 /**
  * Created by matheusoliveira on 09/03/2016.
@@ -31,7 +29,7 @@ public class EditAlarmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addalarm_layout);
+        setContentView(R.layout.editalarm_layout);
 
         segundaSW = (CheckBox) findViewById(R.id.segundaSW);
         tercaSW = (CheckBox) findViewById(R.id.tercaSW);

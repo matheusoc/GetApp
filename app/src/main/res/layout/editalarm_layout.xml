@@ -146,8 +146,8 @@
         android:text="@string/confirm"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:textColor="#9DA3A1"
-        android:background="#BAF5E1"
+        android:textColor="#FFF"
+        android:background="@color/colorPrimary"
         android:id="@+id/confirmBTN"/>
 
 </LinearLayout>

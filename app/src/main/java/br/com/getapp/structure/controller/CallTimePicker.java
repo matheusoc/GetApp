@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TimePicker;
 
@@ -38,6 +39,8 @@ public class CallTimePicker extends DialogFragment {
     public Dialog dialog(final Context context, int hour,  int minute,  boolean is24HourView) {
         final Dialog  d = new Dialog(context);
 
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.timepicker_layout, null);
 
@@ -60,7 +63,6 @@ public class CallTimePicker extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Alarm alarm = new Alarm(String.valueOf(picker.getCurrentHour()), String.valueOf(picker.getCurrentMinute()));
-                AlarmBuilder alarmBuilder = new AlarmBuilder(context);
                 DataBase db = new DataBase(context);
                 db.insert(alarm);
                 ((MainActivity) getActivity()).refreshList();

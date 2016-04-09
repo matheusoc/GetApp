@@ -23,6 +23,8 @@ public abstract class NotificationAlarm {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 (int) System.currentTimeMillis(), intent, 0);
 
+        long[] vibrate = new long[] {500, 500};
+
         NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(context)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setContentTitle("Alarm")
@@ -32,6 +34,7 @@ public abstract class NotificationAlarm {
                 .setColor(context.getResources().getColor(R.color.colorClock))
                 .setVibrate(new long[0])
                 .setContentIntent(pendingIntent)
+                .setVibrate(vibrate)
                 .setAutoCancel(true);
 
         NotificationManager notificationManager = (NotificationManager)
