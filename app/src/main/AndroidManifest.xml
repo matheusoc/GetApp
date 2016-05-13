@@ -28,12 +28,6 @@
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <activity
-            android:name=".structure.view.RemoveAlarmActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
         <receiver android:name=".structure.receiver.AlarmReceiver"/>
     </application>
 

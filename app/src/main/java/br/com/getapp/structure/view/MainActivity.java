@@ -1,20 +1,19 @@
 package br.com.getapp.structure.view;
 
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextClock;
 
 import br.com.getapp.R;
-import br.com.getapp.structure.view.adapter.AlarmAdapter;
-import br.com.getapp.structure.controller.CallTimePicker;
+import br.com.getapp.structure.view.fragment.CallTimePicker;
+import br.com.getapp.structure.view.adapter.TabAdapter;
+import br.com.getapp.structure.view.fragment.ListFragment;
+import br.com.getapp.structure.view.fragment.RemoveFragment;
 
 /**
  * Created by matheusoliveira on 08/03/2016.
@@ -23,27 +22,47 @@ public class MainActivity extends AppCompatActivity {
 
     private TextClock txtClock;
     private FloatingActionButton fab;
-    private ListView listView;
-    private ImageButton imgButton;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainlayout);
 
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(new TabAdapter(getSupportFragmentManager(), 2));
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getText().equals("Alarmes")){
+                    fab.show();
+                } else {
+                    fab.hide();
+                }
+                ListFragment.refresh();
+                RemoveFragment.refresh();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         txtClock = (TextClock) findViewById(R.id.textClock);
         txtClock.setFormat24Hour(txtClock.getFormat24Hour());
 
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(MainActivity.this, EditAlarmActivity.class);
-                i.putExtra("position", position);
-                startActivity(i);
-            }
-        });
-        listView.setAdapter(new AlarmAdapter(this));
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -55,23 +74,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imgButton = (ImageButton) findViewById(R.id.imgButton);
-        imgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, RemoveAlarmActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        refreshList();
-    }
-
-    public void refreshList() {
-        listView.setAdapter(new AlarmAdapter(this));
     }
 }

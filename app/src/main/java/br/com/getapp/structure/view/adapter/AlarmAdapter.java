@@ -109,6 +109,7 @@ public class AlarmAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EditAlarmActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("position", pos);
                 context.startActivity(i);
             }

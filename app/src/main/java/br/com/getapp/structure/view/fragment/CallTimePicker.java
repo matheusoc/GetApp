@@ -1,4 +1,4 @@
-package br.com.getapp.structure.controller;
+package br.com.getapp.structure.view.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,8 +15,10 @@ import java.util.Calendar;
 
 import br.com.getapp.R;
 import br.com.getapp.structure.alarmbuild.AlarmBuilder;
+import br.com.getapp.structure.controller.DataBase;
 import br.com.getapp.structure.model.Alarm;
 import br.com.getapp.structure.view.MainActivity;
+import br.com.getapp.structure.view.fragment.ListFragment;
 
 /**
  * Created by matheusoliveira on 10/03/2016.
@@ -41,7 +43,8 @@ public class CallTimePicker extends DialogFragment {
 
         d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater)
+                context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.timepicker_layout, null);
 
         picker = (TimePicker) layout.findViewById(R.id.timePicker);
@@ -62,10 +65,12 @@ public class CallTimePicker extends DialogFragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Alarm alarm = new Alarm(String.valueOf(picker.getCurrentHour()), String.valueOf(picker.getCurrentMinute()));
+                Alarm alarm = new Alarm(String.valueOf(picker.getCurrentHour()),
+                        String.valueOf(picker.getCurrentMinute()));
                 DataBase db = new DataBase(context);
                 db.insert(alarm);
-                ((MainActivity) getActivity()).refreshList();
+                ListFragment.refresh();
+                RemoveFragment.refresh();
                 d.cancel();
             }
         });
