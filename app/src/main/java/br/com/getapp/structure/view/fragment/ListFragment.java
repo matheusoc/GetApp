@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ import br.com.getapp.structure.view.adapter.AlarmAdapter;
 public class ListFragment extends Fragment {
 
     private  static Context context;
-    private  static ListView list;
+    private  static RecyclerView list;
     public static ListFragment newInstance(){
         ListFragment fragment = new ListFragment();
         return fragment;
@@ -39,16 +41,12 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.listview_layout, container, false);
-        list = (ListView) v.findViewById(R.id.list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(context, EditAlarmActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra("position", position);
-                startActivity(i);
-            }
-        });
+        list = (RecyclerView) v.findViewById(R.id.list);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        list.setLayoutManager(llm);
+
         list.setAdapter(new AlarmAdapter(context));
         return v;
     }

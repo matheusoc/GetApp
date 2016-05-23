@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ import br.com.getapp.structure.view.adapter.RemoveAdapter;
 public class RemoveFragment extends Fragment {
 
     private static Context context;
-    private static ListView list;
+    private static RecyclerView list;
 
     public static RemoveFragment newInstance(){
         RemoveFragment fragment = new RemoveFragment();
@@ -38,7 +40,12 @@ public class RemoveFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.listview_layout, container, false);
-        list = (ListView) v.findViewById(R.id.list);
+        list = (RecyclerView) v.findViewById(R.id.list);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        list.setLayoutManager(llm);
+
         list.setAdapter(new RemoveAdapter(context));
         return v;
     }

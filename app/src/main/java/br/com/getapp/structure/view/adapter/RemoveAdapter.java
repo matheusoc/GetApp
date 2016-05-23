@@ -1,6 +1,7 @@
 package br.com.getapp.structure.view.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,14 @@ import br.com.getapp.R;
 import br.com.getapp.structure.alarmbuild.AlarmBuilder;
 import br.com.getapp.structure.controller.DataBase;
 import br.com.getapp.structure.model.Alarm;
+import br.com.getapp.structure.view.AlarmHolder;
 import br.com.getapp.structure.view.fragment.ListFragment;
 import br.com.getapp.structure.view.fragment.RemoveFragment;
 
 /**
  * Created by User on 12/05/2016.
  */
-public class RemoveAdapter extends BaseAdapter {
+public class RemoveAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private ArrayList<Alarm> alarms;
@@ -31,23 +33,17 @@ public class RemoveAdapter extends BaseAdapter {
         alarms = db.getAllAlarms();
     }
 
+
     @Override
-    public int getCount() {
-        return alarms.size();
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.removeralarm_adapter_layout, null);
+        AlarmHolder holder = new AlarmHolder(layout);
+        return holder;
     }
 
     @Override
-    public Object getItem(int position) {
-        return alarms.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final int pos = position;
         final DataBase db = new DataBase(context);
 
@@ -64,10 +60,7 @@ public class RemoveAdapter extends BaseAdapter {
             minuto = "0"+minuto;
         }
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.removeralarm_adapter_layout, null);
-
-        ImageButton imgBtn = (ImageButton) layout.findViewById(R.id.removeImageButton);
+        ImageButton imgBtn = (ImageButton) holder.itemView.findViewById(R.id.removeImageButton);
         imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,9 +72,18 @@ public class RemoveAdapter extends BaseAdapter {
             }
         });
 
-        TextView tempo = (TextView) layout.findViewById(R.id.temp);
+        TextView tempo = (TextView) holder.itemView.findViewById(R.id.temp);
         tempo.setText(hora + ":" + minuto);
-
-        return layout;
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return alarms.size();
+    }
+
 }
