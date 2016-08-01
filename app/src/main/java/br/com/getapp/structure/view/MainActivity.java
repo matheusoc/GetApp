@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     fab.hide();
                 }
-                ListFragment.refresh();
-                RemoveFragment.refresh();
             }
 
             @Override

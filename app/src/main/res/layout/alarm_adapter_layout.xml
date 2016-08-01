@@ -3,28 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:backgroundTint="#FFF">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="7:00"
             android:textSize="35sp"
             android:textColor="#494949"
+            android:layout_alignParentLeft="true"
             android:layout_marginRight="150dp"
             android:id="@+id/tempo"/>
 
         <Switch
+            android:id="@+id/sw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/sw"/>
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

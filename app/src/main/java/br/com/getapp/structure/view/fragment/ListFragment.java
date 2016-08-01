@@ -26,6 +26,7 @@ public class ListFragment extends Fragment {
 
     private  static Context context;
     private  static RecyclerView list;
+
     public static ListFragment newInstance(){
         ListFragment fragment = new ListFragment();
         return fragment;
